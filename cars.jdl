@@ -1,0 +1,49 @@
+entity Car {
+brand Brand required
+model String minlength(2) maxlength(40) required
+bodyType BodyType
+imageUrl String
+year Integer min(1900) max(2100) required
+engineVolume Float min(0) max(30.0)
+gearboxType GearBoxType
+description String minlength(20) maxlength(6000)
+}
+
+entity Option {
+	optionName String
+}
+
+relationship OneToMany {
+    Car to Option{car}
+}
+
+dto * with mapstruct
+
+enum BodyType {
+    SEDAN, UNIVERSAL, HATCHBACK, MINIVAN, SUV, COUPE, CONVERTIBLE, PICKUP, LIMOUSINE
+}
+
+enum GearBoxType {
+    AUTOMATIC, MECHANIC, ROBOTIC
+}
+
+enum Brand {
+     ACURA, AUDI, BENTLEY, BMW, BOLLINGER, BRILLIANCE, CITROEN, CONTINENTAL, INEOS, INFINITI, MCLAREN, MERCEDES_BENZ, MG, MINI, NISSAN, OPEL, PAGANI, PEUGEOT, POLESTAR, PORSCHE, QOROS, RANGE_ROVER, RAVON, RENAULT, RIMAC, RIVIAN, ROLLS_ROYCE, SAAB, SAIPA, SEAT, SKODA, SMART, SSANGYONG, SSC_NORTH, AMERICA, STELLANTIS, SUBARU, SUZUKI, TATA, TESLA, TORSUS, TOYOTA, VINFAST, VOLKSWAGEN, VOLVO, XPENG
+}
+
+entity AppUser{
+firstName String
+username String
+password String
+}
+entity Role{
+name String 
+}
+relationship ManyToMany {
+    AppUser{role} to Role{user}
+}
+service Car with serviceImpl
+
+service AppUser with userServiceImpl
+
+
