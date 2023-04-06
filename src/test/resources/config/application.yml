@@ -15,7 +15,7 @@
 
 spring:
   application:
-    name: carCatalog
+    name: carsCatalog
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: test
@@ -33,13 +33,13 @@ spring:
     basename: i18n/messages
   task:
     execution:
-      thread-name-prefix: car-catalog-task-
+      thread-name-prefix: cars-catalog-task-
       pool:
         core-size: 1
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: car-catalog-scheduling-
+      thread-name-prefix: cars-catalog-scheduling-
       pool:
         size: 20
   thymeleaf:
@@ -56,9 +56,9 @@ server:
 # ===================================================================
 jhipster:
   clientApp:
-    name: 'carCatalogApp'
+    name: 'CarApplication'
   mail:
-    from: carCatalog@localhost.com
+    from: carsCatalog@localhost.com
     base-url: http://127.0.0.1:8080
   logging:
     # To test json console appender
@@ -72,7 +72,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: MmQyMDliNjJmZWQxMjlkNmI5YTI0NDMxNTBkY2JkNThhN2RkYmE0ZGQ2MTUwZGZlY2UzYzdhNjM5M2FlYTM4NTJmZDA4YTVhOTU4OTcwYmJjYzM5MjZjZjIyMmZlZTBkYTRlNmNmMzk3NjI3YTQyNjExNGZiZWFiNmNhMjQ2NDg=
+        base64-secret: ZmEwN2E2ZjBjODdhOWQ3YTg3YjBhNmE5ZmU3MzBhNzQ1OTBmZDk0NmJhNGZjMmM4MGM0ZTNjZTAyNzk3ZWRmMDgxZDlmNGFlZTAxYTYzNjlhY2I3MGYxNTEzYmJjNzQ3NDhiN2JiMGJkMjZiNDViODJiNDYyZWVmYjAxYTk4Nzk=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
 

@@ -23,6 +23,7 @@ export class ApplicationConfigService {
     if (microservice) {
       return `${this.endpointPrefix}services/${microservice}/${api}`;
     }
+
     return `${this.endpointPrefix}${api}`;
   }
 }

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NgModule, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 import { errorRoute } from './layouts/error/error.route';
 import { navbarRoute } from './layouts/navbar/navbar.route';
@@ -7,6 +7,7 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { ErrorPaymentModule } from './cart/payment/error-payment/error-payment.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,18 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
         {
           path: 'login',
           loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+        },
+        {
+          path: 'cart',
+          loadChildren: () => import('./cart/cart.module').then(m => m.CartModule),
+        },
+        {
+          path: 'order',
+          loadChildren: () => import('./cart/payment/order.module').then(m => m.OrderModule),
+        },
+        {
+          path: 'error/payment',
+          loadChildren: () => import('./cart/payment/error-payment/error-payment.module').then(m => m.ErrorPaymentModule),
         },
         {
           path: '',

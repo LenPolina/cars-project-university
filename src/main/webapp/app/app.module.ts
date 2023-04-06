@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/en';
@@ -8,7 +8,6 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
 import { SharedModule } from 'app/shared/shared.module';
@@ -23,12 +22,16 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule } from '@angular/material/radio';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     SharedModule,
     HomeModule,
+    BrowserAnimationsModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     AppRoutingModule,
     // Set this to true to enable service worker (PWA)
@@ -39,6 +42,10 @@ import { ErrorComponent } from './layouts/error/error.component';
   providers: [
     Title,
     { provide: LOCALE_ID, useValue: 'en' },
+    {
+      provide: MAT_RADIO_DEFAULT_OPTIONS,
+      useValue: { color: 'accent' },
+    },
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],

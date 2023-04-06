@@ -47,7 +47,7 @@ describe('MainComponent', () => {
   });
 
   describe('page title', () => {
-    const defaultPageTitle = 'Car Catalog';
+    const defaultPageTitle = 'Cars Catalog';
     const parentRoutePageTitle = 'parentTitle';
     const childRoutePageTitle = 'childTitle';
     const navigationEnd = new NavigationEnd(1, '', '');

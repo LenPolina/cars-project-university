@@ -1,7 +1,23 @@
 function setupProxy({ tls }) {
   const conf = [
     {
-      context: ['/api', '/services', '/management', '/v3/api-docs', '/h2-console', '/auth', '/health'],
+      context: [
+        '/api',
+        '/catalog',
+        '/cart',
+        '/car',
+        '/storage',
+        '/payment',
+        '/price',
+        '/order/get',
+        '/order/add',
+        '/services',
+        '/management',
+        '/v3/api-docs',
+        '/h2-console',
+        '/auth',
+        '/health',
+      ],
       target: `http${tls ? 's' : ''}://localhost:8080`,
       secure: false,
       changeOrigin: tls,

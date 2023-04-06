@@ -19,12 +19,16 @@ logging:
     tech.jhipster: DEBUG
     org.hibernate.SQL: DEBUG
     com.implemica.application: DEBUG
-
+region: eu-central-1
+buketName: car-catalog-images
+max:
+  age:
+    value: max-age=31536000
 spring:
   devtools:
     restart:
       enabled: true
-      additional-exclude: static/**
+      additional-exclude: static/**,.h2.server.properties
     livereload:
       enabled: false # we use Webpack dev server + BrowserSync for livereload
   jackson:
@@ -32,14 +36,17 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/carCatalog
-    username: carCatalog
+    url: jdbc:h2:mem:carscatalog;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=LEGACY
+    username: carsCatalog
     password:
     hikari:
       poolName: Hikari
       auto-commit: false
+  h2:
+    console:
+      # disable spring boot built-in h2-console since we start it manually with correct configuration
+      enabled: false
   jpa:
-    database-platform: tech.jhipster.domain.util.FixedPostgreSQL10Dialect
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
@@ -82,7 +89,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: MmQyMDliNjJmZWQxMjlkNmI5YTI0NDMxNTBkY2JkNThhN2RkYmE0ZGQ2MTUwZGZlY2UzYzdhNjM5M2FlYTM4NTJmZDA4YTVhOTU4OTcwYmJjYzM5MjZjZjIyMmZlZTBkYTRlNmNmMzk3NjI3YTQyNjExNGZiZWFiNmNhMjQ2NDg=
+        base64-secret: ZmEwN2E2ZjBjODdhOWQ3YTg3YjBhNmE5ZmU3MzBhNzQ1OTBmZDk0NmJhNGZjMmM4MGM0ZTNjZTAyNzk3ZWRmMDgxZDlmNGFlZTAxYTYzNjlhY2I3MGYxNTEzYmJjNzQ3NDhiN2JiMGJkMjZiNDViODJiNDYyZWVmYjAxYTk4Nzk=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

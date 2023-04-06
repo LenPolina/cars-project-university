@@ -15,18 +15,19 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const serverApiUrl = this.applicationConfigService.getEndpointFor('');
-    if (!request.url || (request.url.startsWith('http') && !(serverApiUrl && request.url.startsWith(serverApiUrl)))) {
-      return next.handle(request);
-    }
-
+    console.log('token ');
     const token: string | null =
       this.localStorageService.retrieve('authenticationToken') ?? this.sessionStorageService.retrieve('authenticationToken');
     if (token) {
+      console.log('token ' + token);
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
         },
       });
+      return next.handle(request);
+    } else if (!request.url || (request.url.startsWith('http') && !(serverApiUrl && request.url.startsWith(serverApiUrl)))) {
+      return next.handle(request);
     }
     return next.handle(request);
   }

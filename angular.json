@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "car-catalog": {
+    "cars-catalog": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -76,15 +76,15 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "car-catalog:build:development",
+            "browserTarget": "cars-catalog:build:development",
             "port": 4200
           },
           "configurations": {
             "production": {
-              "browserTarget": "car-catalog:build:production"
+              "browserTarget": "cars-catalog:build:production"
             },
             "development": {
-              "browserTarget": "car-catalog:build:development"
+              "browserTarget": "cars-catalog:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -104,6 +104,7 @@
       "path": "./target/angular/",
       "environment": "all"
     },
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   }
 }

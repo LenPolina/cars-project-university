@@ -1,6 +1,5 @@
 package com.implemica.application;
 
-import com.implemica.application.CarCatalogApp;
 import com.implemica.application.config.AsyncSyncConfiguration;
 import com.implemica.application.config.EmbeddedSQL;
 import java.lang.annotation.ElementType;
@@ -15,7 +14,7 @@ import org.springframework.test.annotation.DirtiesContext;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = { CarCatalogApp.class, AsyncSyncConfiguration.class })
+@SpringBootTest(classes = { CarsCatalogApp.class, AsyncSyncConfiguration.class })
 @EmbeddedSQL
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public @interface IntegrationTest {

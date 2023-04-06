@@ -9,7 +9,7 @@ import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
-@AnalyzeClasses(packagesOf = CarCatalogApp.class, importOptions = DoNotIncludeTests.class)
+@AnalyzeClasses(packagesOf = CarsCatalogApp.class, importOptions = DoNotIncludeTests.class)
 class TechnicalStructureTest {
 
     // prettier-ignore
@@ -29,7 +29,7 @@ class TechnicalStructureTest {
         .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Service", "Security", "Web", "Config")
         .whereLayer("Domain").mayOnlyBeAccessedByLayers("Persistence", "Service", "Security", "Web", "Config")
 
-        .ignoreDependency(belongToAnyOf(CarCatalogApp.class), alwaysTrue())
+        .ignoreDependency(belongToAnyOf(CarsCatalogApp.class), alwaysTrue())
         .ignoreDependency(alwaysTrue(), belongToAnyOf(
             com.implemica.application.config.Constants.class,
             com.implemica.application.config.ApplicationProperties.class
