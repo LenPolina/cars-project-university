@@ -129,3 +129,9 @@ jhipster:
 # ===================================================================
 
 # application:
+
+region: eu-central-1
+buketName: car-catalog-images
+max:
+  age:
+    value: max-age=31536000

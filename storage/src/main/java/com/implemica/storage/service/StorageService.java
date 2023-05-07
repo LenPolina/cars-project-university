@@ -4,8 +4,6 @@ package com.implemica.storage.service;
 import com.amazonaws.services.cloud9.model.BadRequestException;
 import com.implemica.storage.model.CarStorage;
 import com.implemica.storage.repository.StorageRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -40,7 +38,7 @@ public class StorageService {
             CarStorage carStorage = storageRepository.findById(carId).get();
 
             carStorage.setCarNumber(carStorage.getCarNumber()-amountToDelete);
-            log.info("Deleting car amount {} by id = {}, new amount = {}", amountToDelete, carId, carStorage.getCarNumber()-amountToDelete);
+            log.info("Deleting car amount {} by id = {}, new amount = {}", amountToDelete, carId, carStorage.getCarNumber());
             storageRepository.save(carStorage);
         }catch (NoSuchElementException e){
             throw new BadRequestException("The car does not exist."+e.getMessage());

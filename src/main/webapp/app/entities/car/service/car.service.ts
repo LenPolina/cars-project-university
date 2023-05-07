@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
@@ -71,9 +71,24 @@ export class CarService {
     return this.http.get<ICar>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(
+    req?: any,
+    carBrand?: string | undefined,
+    carBody?: string | undefined,
+    carGearBox?: string | undefined,
+    minPrice?: string | undefined,
+    maxPrice?: string | undefined
+  ): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ICar[]>(`${this.resourceUrl}`, { observe: 'response' });
+
+    let params = new HttpParams();
+    if (carBrand) params = params.append('carBrand', carBrand);
+    if (carBody) params = params.append('carBody', carBody);
+    if (carGearBox) params = params.append('gearbox', carGearBox);
+    if (minPrice) params = params.append('minPrice', minPrice);
+    if (maxPrice) params = params.append('maxPrice', maxPrice);
+
+    return this.http.get<ICar[]>(`${this.resourceUrl}/find`, { observe: 'response', params: params });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

@@ -126,7 +126,7 @@ public class FileServiceImpl implements FileService {
             log.info(FILE_WAS_DELETED_FROM_THE_S_3_BUKET, fileName);
             return FILE_WAS_DELETED_SUCCESSFULLY;
         } catch (SdkClientException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, FILE_DOES_NOT_EXIST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 

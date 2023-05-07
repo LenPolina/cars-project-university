@@ -3,7 +3,6 @@ package com.implemica.storage.controller;
 
 import com.implemica.storage.model.CarStorage;
 import com.implemica.storage.service.StorageService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,9 +41,10 @@ public class StorageController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/delete/car/{id}")
-    public ResponseEntity<String> deleteCarAmount(@PathVariable("id") Long carId, @RequestBody Long amountToDelete){
-        storageService.deleteCarAmount(carId, amountToDelete);
+
+    @org.springframework.kafka.annotation.KafkaListener(topics = "RemoveOneCarFromStorage", groupId = "cars_amount")
+    public ResponseEntity<String> deleteCarAmount(Long carId){
+        storageService.deleteCarAmount(carId, 1L);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

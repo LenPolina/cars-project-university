@@ -58,4 +58,8 @@ export class OrderService {
       return this.http.post<IOrder>(`${this.resourceUrl}/get/${orderId}`, username);
     } else return new Observable<IOrder>();
   }
+
+  public getAll(): Observable<HttpResponse<IOrder[]>> {
+    return this.http.get<IOrder[]>(`${this.resourceUrl}/get`, { observe: 'response' });
+  }
 }

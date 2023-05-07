@@ -1,5 +1,8 @@
 package com.implemica.application.config;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +26,12 @@ public class S3Config {
      */
     @Bean
     public AmazonS3 s3(){
+        AWSCredentials credentials = new BasicAWSCredentials(
+            "AKIA4M6UWAPSGCAIVUXH",
+            "me3at0oA7Y+s40iy/eoRxVe/2p3cjJ/FybU+7pEv"
+        );
         return AmazonS3ClientBuilder.standard()
+               .withCredentials(new AWSStaticCredentialsProvider(credentials))
                .withRegion(region)
                .build();
     }

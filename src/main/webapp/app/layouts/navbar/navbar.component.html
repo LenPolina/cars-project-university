@@ -18,6 +18,24 @@
 
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
       <ul class="navbar-nav ms-auto">
+        <li>
+          <nav class="navbar">
+            <div class="container-fluid">
+              <form class="d-flex input-group w-auto">
+                <input
+                  type="search"
+                  class="form-control rounded"
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="search-addon"
+                />
+                <span class="input-group-text border-0" id="search-addon">
+                  <i class="fas fa-search"></i>
+                </span>
+              </form>
+            </div>
+          </nav>
+        </li>
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <span>
@@ -46,7 +64,7 @@
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a
             class="nav-link"
-            routerLink="car"
+            routerLink="all"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
             (click)="collapseNavbar()"
@@ -111,12 +129,7 @@
                 <span>Health</span>
               </a>
             </li>
-            <li>
-              <a class="dropdown-item" routerLink="order/get" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="heart" [fixedWidth]="true"></fa-icon>
-                <span>Orders</span>
-              </a>
-            </li>
+
             <li>
               <a class="dropdown-item" routerLink="admin/configuration" routerLinkActive="active" (click)="collapseNavbar()">
                 <fa-icon icon="cogs" [fixedWidth]="true"></fa-icon>
@@ -183,6 +196,12 @@
               >
                 <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
                 <span>Password</span>
+              </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_USER' || 'ROLE_ADMIN'">
+              <a class="dropdown-item" routerLink="orders" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="heart" [fixedWidth]="true"></fa-icon>
+                <span>Orders</span>
               </a>
             </li>
             <li *ngSwitchCase="true">

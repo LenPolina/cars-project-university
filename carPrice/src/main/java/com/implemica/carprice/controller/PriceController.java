@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/price")
 public class PriceController {
@@ -21,8 +23,13 @@ public class PriceController {
     }
 
     @GetMapping(value = "/get/{id}")
-    public ResponseEntity<Price> getCarPrice(@PathVariable("id") Long carId){
+    public ResponseEntity<Price> getPrice(@PathVariable("id") Long carId){
         Price carPrice = priceService.getCarPrice(carId);
+        return new ResponseEntity<>(carPrice, HttpStatus.OK);
+    }
+    @GetMapping(value = "/get/for/{id}")
+    public ResponseEntity<BigDecimal> getCarPrice(@PathVariable("id") Long carId){
+        BigDecimal carPrice = priceService.getCarPrice(carId).getCarPrice();
         return new ResponseEntity<>(carPrice, HttpStatus.OK);
     }
 

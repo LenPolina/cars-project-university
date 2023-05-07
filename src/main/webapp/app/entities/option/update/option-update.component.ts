@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { OptionFormService, OptionFormGroup } from './option-form.service';
+import { OptionFormGroup, OptionFormService } from './option-form.service';
 import { IOption } from '../option.model';
 import { OptionService } from '../service/option.service';
 import { ICar } from 'app/entities/car/car.model';
@@ -84,7 +84,7 @@ export class OptionUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.carService
-      .query()
+      .query(undefined, undefined, undefined, undefined, undefined)
       .pipe(map((res: HttpResponse<ICar[]>) => res.body ?? []))
       .pipe(map((cars: ICar[]) => this.carService.addCarToCollectionIfMissing<ICar>(cars, this.option?.car)))
       .subscribe((cars: ICar[]) => (this.carsSharedCollection = cars));

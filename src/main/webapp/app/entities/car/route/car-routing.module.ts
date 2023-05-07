@@ -10,12 +10,18 @@ import { ASC } from 'app/config/navigation.constants';
 
 const carRoute: Routes = [
   {
+    path: ':carBrand/:carBody/:carGearBox/:minPrice/:maxPrice',
+    component: CarComponent,
+    data: {
+      defaultSort: 'id,' + ASC,
+    },
+  },
+  {
     path: '',
     component: CarComponent,
     data: {
       defaultSort: 'id,' + ASC,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: ':id/view',
@@ -23,7 +29,6 @@ const carRoute: Routes = [
     resolve: {
       car: CarRoutingResolveService,
     },
-    canActivate: [UserRouteAccessService],
   },
   {
     path: 'new',

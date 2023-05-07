@@ -57,4 +57,6 @@ public interface CarService {
     void delete(Long id);
 
     String getCarImageUrlById(Long id) throws BadRequestException;
+
+    List<CarDTO> findFilteredCars(String brand, String bodyType, String gearbox, String minPrice, String maxPrice);
 }

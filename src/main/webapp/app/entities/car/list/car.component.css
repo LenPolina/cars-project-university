@@ -195,3 +195,9 @@ body {
 #ads .card-image-overlay span {
   display: inline-block;
 }
+* {
+  box-sizing: border-box;
+}
+body {
+  color: grey;
+}

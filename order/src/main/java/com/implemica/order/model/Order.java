@@ -1,14 +1,13 @@
 package com.implemica.order.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.joda.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-
-import java.util.Date;
 import java.util.List;
-
-import static com.implemica.order.model.OrderStatus.ORDERED;
 
 @Entity
 @Setter
@@ -26,10 +25,12 @@ public class Order {
     Long user;
 
     @Column(name = "car_order_date", nullable = false)
-    Date orderDate;
+    @DateTimeFormat(pattern = "dd MMMM yyyy HH:mm:ss")
+    LocalDateTime orderDate;
 
     @Column(name = "car_order_status", nullable = false)
-    OrderStatus orderStatus = ORDERED;
+    @Enumerated(EnumType.STRING)
+    OrderStatus orderStatus;
 
     @Column(name = "car_total_price", nullable = false)
     BigDecimal orderTotalPrice;
@@ -59,11 +60,11 @@ public class Order {
         this.user = user;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 

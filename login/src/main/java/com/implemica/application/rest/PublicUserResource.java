@@ -10,6 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.PaginationUtil;
@@ -71,10 +73,11 @@ public class PublicUserResource {
         return new ResponseEntity<>(userService.getUserByLogin(login), HttpStatus.OK);
     }
 
-    @PostMapping("/users/get")
-    public ResponseEntity<Long> getUser(@RequestBody String login) {
+    @KafkaListener(topics = "getUserId", groupId = "users")
+    @SendTo("returnId")
+    public Long getUser(String login) {
         log.debug("REST request to get User id : {}", login);
-        return new ResponseEntity<>(userService.getUserByLogin(login), HttpStatus.OK);
+        return userService.getUserByLogin(login);
     }
 
     @GetMapping("/user/name/{id}")

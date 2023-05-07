@@ -19,8 +19,8 @@ logging:
     tech.jhipster: DEBUG
     org.hibernate.SQL: DEBUG
     com.implemica.application: DEBUG
-region: eu-central-1
-buketName: car-catalog-images
+region: us-east-1
+buketName: cars-storage-xenia-s.implemica.com
 max:
   age:
     value: max-age=31536000

@@ -74,7 +74,7 @@ public class SecurityConfiguration {
         .and()
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS, "/storage/delete/car/**","/**").permitAll()
-            .antMatchers( "/storage/get/**").authenticated()
+            .antMatchers( "/storage/get/**").permitAll()
             .antMatchers("/storage/add/**").hasAuthority(AuthoritiesConstants.ADMIN)
         .and()
             .httpBasic()

@@ -2,7 +2,6 @@ package com.implemica.cart.controller;
 
 import com.implemica.cart.model.Cart;
 import com.implemica.cart.service.CartService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +36,8 @@ public class CartController {
         cartService.delete(cartId, request.getRemoteUser());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-    @DeleteMapping (value = "/clean/user/{userId}")
-    public ResponseEntity<String> deleteCart(@PathVariable("userId") String userId){
+    @org.springframework.kafka.annotation.KafkaListener(topics = "CleanUserCart", groupId = "cars")
+    public ResponseEntity<String> deleteCart(String userId){
         cartService.deleteByUser(userId);
         return new ResponseEntity<>("Success",HttpStatus.OK);
     }

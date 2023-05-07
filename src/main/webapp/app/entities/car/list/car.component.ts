@@ -49,8 +49,12 @@ export class CarComponent implements OnInit {
   trackId = (_index: number, item: ICar): number => this.carService.getCarIdentifier(item);
 
   ngOnInit(): void {
-    console.log('ngOnInit');
-    this.load();
+    let carBrand = <string>this.activatedRoute.snapshot.paramMap.get('carBrand');
+    let carBody = <string>this.activatedRoute.snapshot.paramMap.get('carBody');
+    let carGearBox = <string>this.activatedRoute.snapshot.paramMap.get('carGearBox');
+    let minPrice = <string>this.activatedRoute.snapshot.paramMap.get('minPrice');
+    let maxPrice = <string>this.activatedRoute.snapshot.paramMap.get('maxPrice');
+    this.load(carBrand, carBody, carGearBox, minPrice, maxPrice);
     AOS.init();
   }
 
@@ -61,7 +65,7 @@ export class CarComponent implements OnInit {
     modalRef.closed
       .pipe(
         filter(reason => reason === ITEM_DELETED_EVENT),
-        switchMap(() => this.loadFromBackendWithRouteInformations())
+        switchMap(() => this.loadFromBackendWithRouteInformations(undefined, undefined, undefined, undefined, undefined))
       )
       .subscribe({
         next: (res: EntityArrayResponseType) => {
@@ -70,8 +74,8 @@ export class CarComponent implements OnInit {
       });
   }
 
-  load(): void {
-    this.loadFromBackendWithRouteInformations().subscribe({
+  load(carBrand: string, carBody: string, carGearBox: string, minPrice: string, maxPrice: string): void {
+    this.loadFromBackendWithRouteInformations(carBrand, carBody, carGearBox, minPrice, maxPrice).subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
       },
@@ -82,10 +86,16 @@ export class CarComponent implements OnInit {
       this.handleNavigation(this.predicate, this.ascending);
     }*/
 
-  protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
+  protected loadFromBackendWithRouteInformations(
+    carBrand: string | undefined,
+    carBody: string | undefined,
+    carGearBox: string | undefined,
+    minPrice: string | undefined,
+    maxPrice: string | undefined
+  ): Observable<EntityArrayResponseType> {
     return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
       tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
-      switchMap(() => this.queryBackend(this.predicate, this.ascending))
+      switchMap(() => this.queryBackend(this.predicate, this.ascending, carBrand, carBody, carGearBox, minPrice, maxPrice))
     );
   }
 
@@ -140,12 +150,20 @@ export class CarComponent implements OnInit {
     return data ?? [];
   }
 
-  protected queryBackend(predicate?: string, ascending?: boolean): Observable<EntityArrayResponseType> {
+  protected queryBackend(
+    predicate?: string,
+    ascending?: boolean,
+    carBrand?: string | undefined,
+    carBody?: string | undefined,
+    carGearBox?: string | undefined,
+    minPrice?: string | undefined,
+    maxPrice?: string | undefined
+  ): Observable<EntityArrayResponseType> {
     this.isLoading = true;
     const queryObject = {
       sort: this.getSortQueryParam(predicate, ascending),
     };
-    return this.carService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+    return this.carService.query(queryObject, carBrand, carBody, carGearBox, minPrice, maxPrice).pipe(tap(() => (this.isLoading = false)));
   }
 
   protected handleNavigation(predicate?: string, ascending?: boolean): void {

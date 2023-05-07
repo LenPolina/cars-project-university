@@ -187,7 +187,7 @@ public class OptionResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
-    @PostMapping ("/options/car/{id}")
+    @GetMapping ("/options/car/{id}")
     public ResponseEntity<List<String>> getCarOption(@PathVariable Long id) {
         log.debug("REST request to get car options : {}", id);
         List<Option> options = optionRepository.getAllByCar_Id(id);

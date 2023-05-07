@@ -13,6 +13,14 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+  ##User defined Properties:
+kafka:
+  reuest:
+    topic: student
+  reply:
+    topic: result
+  group:
+    id: student-result-group
 logging:
   level:
     ROOT: INFO
@@ -26,6 +34,16 @@ management:
         enabled: false
 
 spring:
+  kafka:
+#    producer:
+#      value-serializer: org.springframework.kafka.support.serializer.StringSerializer
+    consumer:
+
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: com.asb.example
+    bootstrap-servers: localhost:9092
   devtools:
     restart:
       enabled: false

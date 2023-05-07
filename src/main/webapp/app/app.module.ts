@@ -23,8 +23,8 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule } from '@angular/material/radio';
-import { CartComponent } from './cart/cart.component';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+import { OrderComponent } from './admin/order/order.component';
 
 @NgModule({
   imports: [
@@ -49,7 +49,7 @@ import { CartComponent } from './cart/cart.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
+  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, OrderComponent],
   bootstrap: [MainComponent],
 })
 export class AppModule {

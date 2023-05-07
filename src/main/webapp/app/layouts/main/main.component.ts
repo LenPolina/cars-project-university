@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router, ActivatedRouteSnapshot, NavigationEnd } from '@angular/router';
+import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 
 import { AccountService } from 'app/core/auth/account.service';
 
@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     // try to log in automatically
-    this.accountService.identity().subscribe();
+    //this.accountService.identity().subscribe();
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

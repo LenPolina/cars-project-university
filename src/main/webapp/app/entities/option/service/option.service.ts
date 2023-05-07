@@ -48,7 +48,7 @@ export class OptionService {
   }
 
   getCarOptions(carId: number): Observable<String[]> {
-    return this.http.post<String[]>(`${this.resourceUrl}/car/${carId}`, { observe: 'response' });
+    return this.http.get<String[]>(`${this.resourceUrl}/car/${carId}`);
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

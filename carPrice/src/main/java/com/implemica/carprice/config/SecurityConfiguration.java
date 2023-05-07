@@ -74,7 +74,7 @@ public class SecurityConfiguration {
         .and()
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            .antMatchers("/price/get/**").authenticated()
+            .antMatchers("/price/get/**").permitAll()
             .antMatchers("/price/add/**", "/price/edit/**","/price/delete/**").hasAuthority(AuthoritiesConstants.ADMIN)
         .and()
             .httpBasic()

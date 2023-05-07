@@ -6,13 +6,10 @@ import com.implemica.payment.repository.PaymentRepository;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,11 +27,14 @@ public class PaymentService {
     private final APIContext apiContext;
     private final RestTemplate restTemplate;
 
-    public PaymentService(ModelMapper modelMapper, PaymentRepository paymentRepository, APIContext apiContext, RestTemplate restTemplate) {
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    public PaymentService(ModelMapper modelMapper, PaymentRepository paymentRepository, APIContext apiContext, RestTemplate restTemplate, KafkaTemplate<String, String> kafkaTemplate) {
         this.modelMapper = modelMapper;
         this.paymentRepository = paymentRepository;
         this.apiContext = apiContext;
         this.restTemplate = restTemplate;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     public Payment createPayment(
@@ -105,6 +105,7 @@ public class PaymentService {
     }
 
     public void makeOrderDone(Long orderId) {
-       restTemplate.getForEntity(BASE_URL+"order/execute/order/"+orderId,Void.class);
+        kafkaTemplate.send("HandleOrder",orderId.toString());
+       //restTemplate.getForEntity(BASE_URL+"order/execute/order/"+orderId,Void.class);
     }
 }

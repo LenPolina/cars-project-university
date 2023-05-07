@@ -160,10 +160,23 @@ public class CarResource {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cars in body.
      */
-    @GetMapping("/cars")
+   /* @GetMapping("/cars/find")
     public List<CarDTO> getAllCars() {
         log.debug("REST request to get all Cars");
         return carService.findAll();
+    }*/
+    @GetMapping("/cars/find")
+    public List<CarDTO> getFilteredCars(@RequestParam(required = false) String carBrand, @RequestParam(required = false) String carBody, @RequestParam(required = false) String gearbox,
+                                        @RequestParam(required = false) String minPrice, @RequestParam(required = false) String maxPrice) {
+        log.debug("REST request to get filtered Cars");
+        List<CarDTO> filteredCars;
+        if (carBrand != null && carBody!= null && gearbox!= null){
+           filteredCars = carService.findFilteredCars(carBrand, carBody,gearbox, minPrice, maxPrice);
+        }
+        else{
+            filteredCars = carService.findAll();
+        }
+        return filteredCars;
     }
 
     /**

@@ -1,18 +1,19 @@
 package com.implemica.order.model;
 
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
+import org.joda.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-
-import java.util.Date;
 import java.util.List;
 
 
 @Setter
 @Getter
-@Builder
 public class OrderDTO {
 
     Long id;
@@ -20,7 +21,9 @@ public class OrderDTO {
     @NotNull(message = "User id is required.")
     String user;
 
-    Date orderDate;
+    @JsonFormat(pattern="dd MMMM yyyy HH:mm:ss")
+    @DateTimeFormat(pattern = "dd MMMM yyyy HH:mm:ss")
+    LocalDateTime orderDate;
 
     OrderStatus orderStatus;
 
@@ -32,6 +35,9 @@ public class OrderDTO {
 
     @NotNull(message = "Cars are required.")
     private List<Long> cars;
+
+    public OrderDTO() {
+    }
 
     public Long getId() {
         return id;
@@ -49,11 +55,11 @@ public class OrderDTO {
         this.user = user;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 

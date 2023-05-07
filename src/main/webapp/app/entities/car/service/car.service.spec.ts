@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { ICar } from '../car.model';
-import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../car.test-samples';
+import { sampleWithFullData, sampleWithNewData, sampleWithPartialData, sampleWithRequiredData } from '../car.test-samples';
 
 import { CarService } from './car.service';
 
@@ -78,7 +78,7 @@ describe('Car Service', () => {
 
       const expected = { ...sampleWithRequiredData };
 
-      service.query().subscribe(resp => (expectedResult = resp.body));
+      service.query(undefined, carBrand, carBody, minPrice, maxPrice).subscribe(resp => (expectedResult = resp.body));
 
       const req = httpMock.expectOne({ method: 'GET' });
       req.flush([returnedFromService]);
